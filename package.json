@@ -5,20 +5,26 @@
   "main": "src/server.js",
   "scripts": {
     "start": "node src/server.js",
-    "dev": "nodemon src/server.js"
+    "dev": "nodemon src/server.js",
+    "snapshot": "node scripts/snapshot.js",
+    "scheduler": "node scripts/scheduler.js",
+    "cleanup": "node scripts/cleanup.js"
   },
   "keywords": [
     "nodejs",
     "express",
     "subscriber",
     "usage",
-    "rest-api"
+    "rest-api",
+    "cron",
+    "automation"
   ],
   "author": "Chayla Ravanelly Quintitawati",
   "license": "ISC",
   "dependencies": {
     "dotenv": "^17.4.2",
-    "express": "^5.2.1"
+    "express": "^5.2.1",
+    "node-cron": "^4.6.0"
   },
   "devDependencies": {
     "nodemon": "^3.1.14"
