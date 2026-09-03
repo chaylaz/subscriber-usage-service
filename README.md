@@ -38,6 +38,9 @@ subscriber-usage-service/
 │   ├── schema.sql
 │   └── seed.sql
 │
+├── troubleshooting/
+│   └── getTotalUsageMB.js
+│
 ├── src/
 │   ├── controllers/
 │   │   └── usageController.js
@@ -369,6 +372,57 @@ Subscribers with average call minutes per snapshot less than or equal to 30:
 |---|---|
 | SUB03 | Budi |
 | SUB06 | Nia |
+
+## Troubleshooting: Total Usage Calculation
+
+The original function was:
+
+```javascript
+function getTotalUsageMB(records) {
+  return records.reduce((total, record) => {
+    total += record.dataUsageMB;
+  });
+}
+```
+
+The main issue is that the `reduce()` callback does not return the updated accumulator.
+
+When a callback uses curly braces, the accumulator has to be returned explicitly. Without a return value, the callback returns `undefined`, so the next iteration cannot continue the calculation correctly.
+
+The original function also does not provide an initial value for the accumulator. This can cause an error when `records` is an empty array.
+
+The fixed version is:
+
+```javascript
+function getTotalUsageMB(records) {
+  return records.reduce(
+    (total, record) => total + record.dataUsageMB,
+    0
+  );
+}
+```
+
+The `0` is used as the initial accumulator value. It also makes the function return `0` when an empty array is provided.
+
+The runnable version is available at:
+
+```text
+troubleshooting/getTotalUsageMB.js
+```
+
+Run it with:
+
+```bash
+node troubleshooting/getTotalUsageMB.js
+```
+
+Example output:
+
+```text
+Total usage: 8000 MB
+```
+
+To help prevent this type of bug in the future, I would use unit tests for empty, single-record, and multiple-record inputs. A linting rule such as `array-callback-return` can also catch callbacks that are expected to return a value but do not.
 
 ## Available Commands
 
