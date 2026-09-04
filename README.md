@@ -12,6 +12,8 @@ A simple Node.js and Express service for storing subscriber usage records and cr
 - Scheduled CSV snapshots
 - Snapshot cleanup for files older than 30 days
 - SQL queries for subscriber and usage data
+- Simple frontend for creating and viewing usage records
+- Dynamic API connection status
 
 ## Tech Stack
 
@@ -19,11 +21,17 @@ A simple Node.js and Express service for storing subscriber usage records and cr
 - Express.js
 - node-cron
 - MySQL / MariaDB
+- HTML, CSS, and JavaScript
 
 ## Project Structure
 
 ```text
 subscriber-usage-service/
+│
+├── public/
+│   ├── app.js
+│   ├── index.html
+│   └── styles.css
 │
 ├── scripts/
 │   ├── cleanup.js
@@ -187,6 +195,47 @@ Example response:
   ]
 }
 ```
+
+## Simple Frontend
+
+A small frontend is included for interacting with the usage API directly from the browser.
+
+Start the backend:
+
+```bash
+npm run dev
+```
+
+Then open:
+
+```text
+http://localhost:3000/app/
+```
+
+The frontend can:
+
+- Add usage records through `POST /usage`
+- Display stored records from `GET /usage`
+- Refresh the current usage list
+- Show basic validation messages
+
+The frontend also includes an API status indicator.
+
+When the backend is available, it shows:
+
+```text
+API Connected
+```
+
+If the backend cannot be reached, it changes to:
+
+```text
+API Unavailable
+```
+
+The status is checked automatically while the page is open.
+
+The frontend uses plain HTML, CSS, and JavaScript and does not require any additional frontend framework.
 
 ## Storage
 
