@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Subscriber Usage Service</title>
+
+    <link rel="stylesheet" href="./styles.css">
+</head>
+
+<body>
+    <main class="page-container">
+        <header class="page-header">
+            <div>
+                <p class="eyebrow">
+                    Subscriber Usage Service
+                </p>
+
+                <h1>Usage Records</h1>
+
+                <p class="subtitle">
+                    Add and review subscriber call, SMS, and data usage.
+                </p>
+            </div>
+
+            <div id="api-status" class="api-status checking" title="Checking API status">
+                <span class="status-dot"></span>
+
+                <span id="api-status-text">
+                    Checking API...
+                </span>
+            </div>
+        </header>
+
+        <section class="card">
+            <div class="section-heading">
+                <div>
+                    <h2>Add Usage Record</h2>
+
+                    <p>
+                        Enter the latest usage information for a subscriber.
+                    </p>
+                </div>
+            </div>
+
+            <form id="usage-form">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="subscriberId">
+                            Subscriber ID
+                        </label>
+
+                        <input id="subscriberId" name="subscriberId" type="text" placeholder="SUB01" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="callMinutes">
+                            Call Minutes
+                        </label>
+
+                        <input id="callMinutes" name="callMinutes" type="number" min="0" step="1" placeholder="40"
+                            required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="smsCount">
+                            SMS Count
+                        </label>
+
+                        <input id="smsCount" name="smsCount" type="number" min="0" step="1" placeholder="10" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="dataUsageMB">
+                            Data Usage (MB)
+                        </label>
+
+                        <input id="dataUsageMB" name="dataUsageMB" type="number" min="0" step="any" placeholder="1500"
+                            required>
+                    </div>
+                </div>
+
+                <div class="form-footer">
+                    <p id="form-message" class="form-message" aria-live="polite"></p>
+
+                    <button id="submit-button" type="submit">
+                        Add Usage Record
+                    </button>
+                </div>
+            </form>
+        </section>
+
+        <section class="card">
+            <div class="section-heading records-heading">
+                <div>
+                    <h2>Stored Usage Records</h2>
+
+                    <p>
+                        Records currently stored by the service.
+                    </p>
+                </div>
+
+                <div class="record-actions">
+                    <span id="record-count" class="record-count">
+                        0 records
+                    </span>
+
+                    <button id="refresh-button" class="secondary-button" type="button">
+                        Refresh
+                    </button>
+                </div>
+            </div>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Subscriber ID</th>
+                            <th>Call Minutes</th>
+                            <th>SMS Count</th>
+                            <th>Data Usage</th>
+                            <th>Timestamp</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="usage-table-body">
+                        <tr>
+                            <td colspan="5" class="empty-state">
+                                Loading usage records...
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <script src="./app.js"></script>
+</body>
+
+</html>
